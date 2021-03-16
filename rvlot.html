@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+	<head>
+		<title>RV Lot Map</title>
+	</head>
+	<body style="background-color: #666666;">
+		<div id="menu" style="position: relative; width: 1800px; height: 900px"></div>
+		
+<script>
+	let rooms = [
+		{id: "s1", name: "Studio 1", top: 0, left: 12, height: 2, width: 1.5},
+		{id: "s2", name: "Studio 2", top: 0, left: 13.5, height: 2, width: 1.5},
+		{id: "s3", name: "Studio 3", top: 3, left: 12, height: 1, width: 3},
+		{id: "s4", name: "Studio 4", top: 4, left: 12, height: 1, width: 3},
+		{id: "s5", name: "Studio 5", top: 5, left: 12, height: 1, width: 3},
+		{id: "s6", name: "Studio 6", top: 6, left: 12, height: 1, width: 3},
+		{id: "s7", name: "Studio 7", top: 12, left: 9.5, height: 2, width: 1.5},
+		{id: "u1", name: "Unit 1", top: 14, left: 8, height: 1, width: 3},
+		{id: "u2", name: "Unit 2", top: 12, left: 8, height: 2, width: 1.5},
+		{id: "u3", name: "Unit 3", top: 12, left: 7, height: 3, width: 1},
+		{id: "u4", name: "Unit 4", top: 9, left: 12, height: 1, width: 3},
+		{id: "u5", name: "Unit 5", top: 12, left: 6, height: 3, width: 1},
+		{id: "u6", name: "Unit 6", top: 12, left: 5, height: 3, width: 1},
+		{id: "u7", name: "Unit 7", top: 12, left: 4, height: 3, width: 1},
+		{id: "u8", name: "Unit 8", top: 12, left: 3, height: 3, width: 1},
+		{id: "u9", name: "Unit 9", top: 12, left: 2, height: 3, width: 1},
+		{id: "u10", name: "Unit 10", top: 12, left: 1, height: 3, width: 1},
+		{id: "u11", name: "Unit 11", top: 12, left: 0, height: 3, width: 1},
+		{id: "u12", name: "Unit 12", top: 8, left: 0, height: 3, width: 1},
+		{id: "u13", name: "Unit 13", top: 8, left: 1, height: 3, width: 1},
+		{id: "u14", name: "Unit 14", top: 8, left: 2, height: 3, width: 1},
+		{id: "u15", name: "Unit 15", top: 10, left: 12, height: 1, width: 3},
+		{id: "u16", name: "Unit 16", top: 6, left: 5, height: 3, width: 1},
+		{id: "u17", name: "Unit 17", top: 6, left: 6, height: 3, width: 1},
+		{id: "u18", name: "Unit 18", top: 6, left: 7, height: 3, width: 1},
+		{id: "u19", name: "Unit 19", top: 6, left: 8, height: 3, width: 1},
+		{id: "u20", name: "Unit 20", top: 6, left: 9, height: 3, width: 1},
+		{id: "u21", name: "Unit 21", top: 6, left: 10, height: 3, width: 1},
+		{id: "u22", name: "Unit 22", top: 8, left: 12, height: 1, width: 3},
+		{id: "u23", name: "Unit 23", top: 7, left: 12, height: 1, width: 3},
+		{id: "u24", name: "Unit 24", top: 5, left: 8, height: 1, width: 3},
+		{id: "u25", name: "Unit 25", top: 4, left: 8, height: 1, width: 3},
+		{id: "u26", name: "Unit 26", top: 3, left: 8, height: 1, width: 3},
+		{id: "u27", name: "Unit 27", top: 2, left: 8, height: 1, width: 3},
+		{id: "u28", name: "Unit 28", top: 1, left: 8, height: 1, width: 3},
+		{id: "u29", name: "Unit 29", top: 0, left: 8, height: 1, width: 3},
+		{id: "u30", name: "Unit 30", top: 4, left: 4, height: 1, width: 3},
+		{id: "u31", name: "Unit 31", top: 3, left: 4, height: 1, width: 3},
+		{id: "u32", name: "Unit 32", top: 2, left: 4, height: 1, width: 3},
+		{id: "u33", name: "Unit 33", top: 1, left: 4, height: 1, width: 3},
+//		{id: "u34", name: "Unit 34", top: 0, left: 4, height: 1, width: 3},
+		{id: "u35", name: "Unit 35", top: 3, left: 0, height: 1, width: 3},
+		{id: "u36", name: "Unit 36", top: 2, left: 0, height: 1, width: 3},
+		{id: "u37", name: "Unit 37", top: 1, left: 0, height: 1, width: 3},
+//		{id: "u38", name: "Unit 38", top: 0, left: 0, height: 1, width: 3},
+		{id: "laundry", name: "Laundromat", top: 2, left: 12, height: 1, width: 3},
+//		{id: "br1", name: "BR 1", top: "3em", left: "74em"},
+//		{id: "br2", name: "BR 2", top: "6em", left: "74em"},
+		{id: "storage", name: "Storage", top: 12, left: 12, height: 1.5, width: 3},
+		{id: "pavilion", name: "Pavilion", top: 13.5, left: 12, height: 1.5, width: 3},
+		{id: "carport", name: "2/2", top: 4, left: 0, height: 2, width: 3},
+		{id: "office", name: "Office", top: 6, left: 0, height: 2, width: 3},
+//		{id: "empty1", name: "Empty 1", top: "16em", left: "6em"},
+//		{id: "empty2", name: "Empty 2", top: 6, left: 0, height: 2, width: 1.5},
+		{id: "empty3", name: "Empty 3", top: 11, left: 12, height: 1, width: 3}
+	];
+	let states = [
+		{name: "Occupied", color: "#228811", textColor: "#88ff88"}, // green
+		{name: "Down"    , color: "#111133", textColor: "#8888aa"}, // black
+		{name: "Vacant"  , color: "#882211", textColor: "#ffcccc"}, // red
+		{name: "Reserved", color: "#8811aa", textColor: "#ff00ff"}  // purple
+	];
+	let menu = document.getElementById("menu");
+	
+	const setColor = function (select) {
+		let parent = select.parentNode.parentNode;
+			
+		let state = states.find(e => e.name == select.value);
+		parent.style.backgroundColor = state.color;
+		parent.style.color = state.textColor;
+	}
+	
+	const createSelect = function (room, options) {
+		let div = document.createElement("div");
+		div.style.width = room.width * 100 / 15 + "%";
+		div.style.height = room.height * 100 / 15 + "%";
+		div.style.display = "inline-block";
+		div.style.position = "absolute";
+		div.style.top = room.top  * 100 / 15 + "%";
+		div.style.left = room.left * 100 / 15 + "%";
+		//div.style.padding = "2px";
+		//div.style.textAlign = "center";
+		//div.style.borderStyle = "outset";
+		//div.style.borderWidth = "0.25em";
+		//div.style.backgroundColor = "#cccccc";
+		
+		// ----- select and name -----
+		let div2 = document.createElement("div");
+		div2.appendChild(document.createTextNode(room.name+" "));
+		div2.appendChild(document.createElement("br"));
+		let select = document.createElement("select");
+		for (e of options) {
+			let option = document.createElement("option");
+			option.text = e.name;
+			select.add(option);
+		}
+		
+		// ----- color change stuff -----
+		select.addEventListener("change", (event) => {
+			let target = event.target;
+			//let parent = target.parentNode.parentNode;
+			//let val = target.value
+			
+			//console.log(val);
+			//console.log(parent);
+			
+			//let state = states.find(e => e.name == val);
+			//parent.style.backgroundColor = state.color;
+			//parent.style.color = state.textColor;
+			
+			localStorage.setItem(room.id+"-state", target.value);
+			setColor(target);
+			
+			console.log(event);
+		});
+		
+		div2.appendChild(select);
+		div2.style.textAlign = "center";
+		
+		// ----- text box -----
+		let div4 = document.createElement("div");
+		let textArea = document.createElement("textarea");
+		textArea.style.boxSizing = "border-box";
+		textArea.style.width = "100%";
+		textArea.style.height = "100%";
+		textArea.style.transform = "translate(0,-1px)";
+		
+		textArea.addEventListener("change", (event) => {
+			let target = event.target;
+			
+			localStorage.setItem(room.id+"-text", target.value);
+			
+			console.log(event);
+		});
+		
+		div4.appendChild(textArea);
+	
+		// ----- overall container -----
+		let div3 = document.createElement("div");
+		div3.appendChild(div2);
+		div3.appendChild(div4);
+		
+		div3.style.display = "flex";
+		div2.style.flex = "0";
+		div4.style.flex = "1";
+		if (room.width > room.height) {
+			div4.style.marginLeft = "2px";
+		} else {
+			div3.style.flexDirection = "column";
+			div4.style.marginTop = "2px";
+		}
+		
+		div3.style.top = "2px";
+		div3.style.bottom = "2px";
+		div3.style.left = "2px";
+		div3.style.right = "2px";
+		div3.style.position = "absolute";
+		div3.style.borderWidth = "2px";
+		div3.style.borderStyle = "outset";
+		div3.style.padding = "2px";
+		
+		//div2.style.top = "50%";
+		//div2.style.left = "50%";
+		//div2.style.transform = "translate(-50%,-50%)";
+		//div2.style.textAlign = "center";
+		
+		// ----- restore state -----
+		let state = localStorage.getItem(room.id+"-state");
+		if (state == null) {
+			state = "Occupied";
+			localStorage.setItem(room.id+"-state", state);
+		}
+		select.value = state;
+		setColor(select);
+		
+		let text = localStorage.getItem(room.id+"-text");
+		textArea.value = text;
+		
+		div.appendChild(div3);
+		
+		return div;
+	}
+	
+	for (e of rooms) {
+		menu.appendChild(createSelect(e, states));
+	}
+	
+</script>
+		
+	</body>
+</html>
